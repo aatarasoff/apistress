@@ -1,11 +1,12 @@
 {
+  "baseUrl": "http://localhost:8080",
   "tests": [
     {
       "rps": 100,
       "duration": 1,
       "target": {
         "method": "POST",
-        "url": "http://localhost:8080/test",
+        "path": "/test",
         "headers": [
           {
             "name": "X-Request-Id",

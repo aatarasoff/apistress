@@ -13,13 +13,14 @@ Sometimes you want to check SLA of your API automatically. There are many tools 
 Create file with name `config.json` and folowing structure:
 ```
 {
+  "baseUrl": "http://localhost:8080",               //base url for targets
   "tests": [                                        //array of tests
     {
       "rps": 100,                                   //target request per second
       "duration": 1,                                //test duration
       "target": {
         "method": "POST",                           //http method for target url
-        "url": "http://localhost:8080/test",        //target url
+        "path": "/test",                            //relative path
         "headers": [                                //optional
           {
             "name": "X-Request-Id",                 //http header name

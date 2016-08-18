@@ -1,51 +1,55 @@
 package main
 
 import (
-	"time"
-	"io/ioutil"
-	"encoding/json"
-	"net/http"
 	"encoding/base64"
+	"encoding/json"
+	"flag"
+	"io/ioutil"
+	"net/http"
 	"os"
 	"runtime"
+	"time"
 
 	vegeta "github.com/tsenart/vegeta/lib"
 )
 
 type Header struct {
-	Name string		`json:"name"`
-	Value string		`json:"value"`
+	Name  string `json:"name"`
+	Value string `json:"value"`
 }
 
 type Target struct {
-	Method string		`json:"method"`
-	URL string		`json:"url"`
-	Headers []Header	`json:"headers"`
-	Body string		`json:"body"`
+	Method  string   `json:"method"`
+	Path    string   `json:"path"`
+	Headers []Header `json:"headers"`
+	Body    string   `json:"body"`
 }
 
 type SLA struct {
-	Latency int64		`json:"latency"`
-	SuccessRate float64	`json:"successRate"`
+	Latency     int64   `json:"latency"`
+	SuccessRate float64 `json:"successRate"`
 }
 
 type StressTest struct {
-	Rate uint64		`json:"rps"`
-	Duration uint64		`json:"duration"`
-	Target Target		`json:"target"`
-	SLA SLA			`json:"sla"`
+	Rate     uint64 `json:"rps"`
+	Duration uint64 `json:"duration"`
+	Target   Target `json:"target"`
+	SLA      SLA    `json:"sla"`
 }
 
 type Config struct {
-	Tests []StressTest 	`json:"tests"`
+	BaseURL string       `json:"baseUrl"`
+	Tests   []StressTest `json:"tests"`
 }
 
 func main() {
+	overridenBaseUrl := flag.Arg(0)
+
 	runtime.GOMAXPROCS(runtime.NumCPU())
 
 	tests, err := ioutil.ReadFile("config.json")
 
-	if (err != nil) {
+	if err != nil {
 		os.Stdout.WriteString(err.Error())
 		os.Exit(1)
 	}
@@ -53,28 +57,32 @@ func main() {
 
 	json.Unmarshal(tests, &config)
 
-	for i:=0; i < len(config.Tests); i++ {
+	if overridenBaseUrl != "" {
+		config.BaseURL = overridenBaseUrl
+	}
+
+	for i := 0; i < len(config.Tests); i++ {
 		test := config.Tests[i]
 		rate := test.Rate
 		duration := time.Duration(test.Duration) * time.Second
 
 		headers := &http.Header{}
 
-		for j:=0; j < len(test.Target.Headers); j++ {
+		for j := 0; j < len(test.Target.Headers); j++ {
 			header := test.Target.Headers[j]
 			headers.Set(header.Name, header.Value)
 		}
 
 		body, err := base64.StdEncoding.DecodeString(test.Target.Body)
 
-		if (err != nil) {
+		if err != nil {
 			os.Stdout.WriteString(err.Error())
 			os.Exit(1)
 		}
 
 		targeter := vegeta.NewStaticTargeter(vegeta.Target{
 			Method: test.Target.Method,
-			URL:    test.Target.URL,
+			URL:    config.BaseURL + test.Target.Path,
 			Header: *headers,
 			Body:   body,
 		})
@@ -89,11 +97,11 @@ func main() {
 		reporter := vegeta.NewTextReporter(&metrics)
 		reporter.Report(os.Stdout)
 
-		if (metrics.Success * 100 < test.SLA.SuccessRate) {
+		if metrics.Success*100 < test.SLA.SuccessRate {
 			os.Exit(1)
 		}
 
-		if (metrics.Latencies.P99.Nanoseconds() > test.SLA.Latency * time.Millisecond.Nanoseconds()) {
+		if metrics.Latencies.P99.Nanoseconds() > test.SLA.Latency*time.Millisecond.Nanoseconds() {
 			os.Exit(1)
 		}
 	}
