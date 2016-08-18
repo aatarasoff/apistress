@@ -5,14 +5,14 @@
       "duration": 1,
       "target": {
         "method": "POST",
-        "url": "http://localhost:4567/CS/EQ/WSCustomerClickCurrencyBalance/WSCustomerClickCurrencyBalance10",
+        "url": "http://localhost:8080/test",
         "headers": [
           {
-            "name": "SoapAction",
-            "value": "WSCustomerClickCurrencyBalance10#Get"
+            "name": "X-Request-Id",
+            "value": "12345"
           }
         ],
-        "body": "PHNvYXBlbnY6RW52ZWxvcGUgeG1sbnM6c29hcGVudj0iaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvc29hcC9lbnZlbG9wZS8iCiAgICAgICAgICAgICAgICAgIHhtbG5zOnNvYXBlbmM9Imh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3NvYXAvZW5jb2RpbmcvIiB4bWxuczp4c2Q9Imh0dHA6Ly93d3cudzMub3JnLzIwMDEvWE1MU2NoZW1hIgogICAgICAgICAgICAgICAgICB4bWxuczp4c2k9Imh0dHA6Ly93d3cudzMub3JnLzIwMDEvWE1MU2NoZW1hLWluc3RhbmNlIj4KICAgIDxzb2FwZW52OkhlYWRlci8+CiAgICA8c29hcGVudjpCb2R5PgogICAgICAgIDxwMTUxOldTQ3VzdG9tZXJDbGlja0N1cnJlbmN5QmFsYW5jZUdldCB4bWxuczpwMTUxPSJodHRwOi8vV1NDdXN0b21lckNsaWNrQ3VycmVuY3lCYWxhbmNlMTAuRVEuQ1Mud3MuYWxmYWJhbmsucnUiPgogICAgICAgICAgICA8aW5Db21tb25QYXJtcz4KICAgICAgICAgICAgICAgIDx1c2VySUQ+SUJTUjwvdXNlcklEPgogICAgICAgICAgICAgICAgPGJyYW5jaE51bWJlcj4wMDAwPC9icmFuY2hOdW1iZXI+CiAgICAgICAgICAgICAgICA8ZXh0ZXJuYWxTeXN0ZW1Db2RlPkdSQ0hLMjY8L2V4dGVybmFsU3lzdGVtQ29kZT4KICAgICAgICAgICAgICAgIDxleHRlcm5hbFVzZXJDb2RlPk9OTEJOS1JFU1Q8L2V4dGVybmFsVXNlckNvZGU+CiAgICAgICAgICAgIDwvaW5Db21tb25QYXJtcz4KICAgICAgICAgICAgPGluUGFybXM+CiAgICAgICAgICAgICAgICA8Y3VzPkFCVFlSUTwvY3VzPgogICAgICAgICAgICAgICAgPGV4dD5DMjwvZXh0PgogICAgICAgICAgICAgICAgPHR5cD5BQ1VSPC90eXA+CiAgICAgICAgICAgIDwvaW5QYXJtcz4KICAgICAgICA8L3AxNTE6V1NDdXN0b21lckNsaWNrQ3VycmVuY3lCYWxhbmNlR2V0PgogICAgPC9zb2FwZW52OkJvZHk+Cjwvc29hcGVudjpFbnZlbG9wZT4="
+        "body": "ewoic2F5IiA6ICJoZWxsbyIKfQ=="
       },
       "sla": {
         "latency": 150,
