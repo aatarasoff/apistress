@@ -43,7 +43,10 @@ type Config struct {
 }
 
 func main() {
-	overridenBaseUrl := flag.Arg(0)
+	var overridenBaseUrl string
+	flag.StringVar(&overridenBaseUrl, "baseUrl", "", "Override baseUrl config property")
+
+	flag.Parse()
 
 	runtime.GOMAXPROCS(runtime.NumCPU())
 

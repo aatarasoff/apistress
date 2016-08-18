@@ -41,6 +41,10 @@ Then run docker container:
 ```
 run --rm --net=host -v /path/to/folder/with/config:/data aatarasoff/apistress
 ```
+or with overriden `baseUrl` config property:
+```
+run --rm --net=host -v /path/to/folder/with/config:/data aatarasoff/apistress -baseUrl http://custom.server:8080
+```
 For each test program prints metrics into `stdout`:
 ```
 Requests      [total, rate]            10, 11.11
