@@ -1,5 +1,7 @@
 # apistress
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/aatarasoff/apistress)](https://goreportcard.com/report/github.com/aatarasoff/apistress)
+
 This is very simple stress testing tool for API based on [vegeta](https://github.com/tsenart/vegeta)
 
 ## Motivation
