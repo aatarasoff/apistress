@@ -56,7 +56,7 @@ Success       [ratio]                  100.00%
 Status Codes  [code:count]             200:10
 Error Set:
 ```
-and run exit code that yoy may check with following command:
+and returns exit code that you may check with following command:
 ```
 echo $?       //0 - ok, 1 - sla error
 ```
