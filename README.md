@@ -11,7 +11,7 @@ Sometimes you want to check SLA of your API automatically. There are many tools 
 ## Usage
 
 Create file with name `config.json` and folowing structure:
-```
+```Go
 {
   "baseUrl": "http://localhost:8080",               //base url for targets
   "tests": [                                        //array of tests
@@ -64,7 +64,7 @@ echo $?       //0 - ok, 1 - sla error
 ## Usage without Docker or developing
 
 You need install and setup `golang` 1.6 or above with following [instructions](https://golang.org/doc/install). Then run:
-```
+```Go
 go get
 go install github.com/aatarasoff/apistress
 ```
