@@ -50,12 +50,30 @@ func main() {
 
 	runtime.GOMAXPROCS(runtime.NumCPU())
 
-	tests, err := ioutil.ReadFile("config.json")
-
+	fi, err := os.Stdin.Stat()
 	if err != nil {
 		os.Stdout.WriteString(err.Error())
 		os.Exit(1)
 	}
+
+	var tests []byte
+
+	if fi.Size() > 0 {
+		tests, err = ioutil.ReadAll(os.Stdin)
+
+		if err != nil {
+			os.Stdout.WriteString(err.Error())
+			os.Exit(1)
+		}
+	} else {
+		tests, err = ioutil.ReadFile("config.json")
+
+		if err != nil {
+			os.Stdout.WriteString(err.Error())
+			os.Exit(1)
+		}
+	}
+
 	config := Config{}
 
 	json.Unmarshal(tests, &config)
