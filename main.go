@@ -76,7 +76,11 @@ func main() {
 
 	config := Config{}
 
-	json.Unmarshal(tests, &config)
+	err = json.Unmarshal(tests, &config)
+	if err != nil {
+		os.Stdout.WriteString("Unable to parse json: " + err.Error())
+		os.Exit(1)
+	}
 
 	if overridenBaseUrl != "" {
 		config.BaseURL = overridenBaseUrl
