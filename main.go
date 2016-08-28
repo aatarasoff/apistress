@@ -44,34 +44,26 @@ type Config struct {
 
 func main() {
 	var overridenBaseUrl string
+	var configFileName string
+
 	flag.StringVar(&overridenBaseUrl, "baseUrl", "", "Override baseUrl config property")
+	flag.StringVar(&configFileName, "config", "config.json", "Config source file")
 
 	flag.Parse()
 
 	runtime.GOMAXPROCS(runtime.NumCPU())
 
-	fi, err := os.Stdin.Stat()
+	file, err := file(configFileName)
 	if err != nil {
 		os.Stdout.WriteString(err.Error())
 		os.Exit(1)
 	}
 
-	var tests []byte
+	tests, err := ioutil.ReadAll(file)
 
-	if fi.Size() > 0 {
-		tests, err = ioutil.ReadAll(os.Stdin)
-
-		if err != nil {
-			os.Stdout.WriteString(err.Error())
-			os.Exit(1)
-		}
-	} else {
-		tests, err = ioutil.ReadFile("config.json")
-
-		if err != nil {
-			os.Stdout.WriteString(err.Error())
-			os.Exit(1)
-		}
+	if err != nil {
+		os.Stdout.WriteString(err.Error())
+		os.Exit(1)
 	}
 
 	config := Config{}
@@ -129,5 +121,14 @@ func main() {
 		if metrics.Latencies.P99.Nanoseconds() > test.SLA.Latency*time.Millisecond.Nanoseconds() {
 			os.Exit(1)
 		}
+	}
+}
+
+func file(name string) (*os.File, error) {
+	switch name {
+	case "stdin":
+		return os.Stdin, nil
+	default:
+		return os.Open(name)
 	}
 }

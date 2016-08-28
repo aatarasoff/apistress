@@ -6,8 +6,9 @@ WORKDIR /data
 
 RUN apk update && \
     apk upgrade && \
-    apk add git && \
-    go get github.com/aatarasoff/apistress && \
+    apk add git bash
+
+RUN go get github.com/aatarasoff/apistress && \
     go install github.com/aatarasoff/apistress
 
 CMD [ "apistress" ]
