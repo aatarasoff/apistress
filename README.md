@@ -39,27 +39,27 @@ Create file with name `config.json` and folowing structure:
 ```
 Then run docker container:
 ```
-run --rm --net=host \
+docker run --rm --net=host \
    -v /path/to/folder/with/config:/data \
    aatarasoff/apistress
 ```
 or with overriden `baseUrl` config property:
 ```
-run --rm --net=host \
+docker run --rm --net=host \
    -v /path/to/folder/with/config:/data \
    aatarasoff/apistress apistress \
    -baseUrl http://custom.server:8080
 ```
 If `stdin` input is required, use `-config=stdin` flag:
 ```
-cat config.json | run --rm --net=host \
+cat config.json | docker run --rm --net=host \
    -v /path/to/folder/with/config:/data \
    aatarasoff/apistress apistress \
    -config=stdin
 ```
 Also it is possible to define own config file name and path:
 ```
-run --rm --net=host \
+docker run --rm --net=host \
    -v /path/to/folder/with/config:/data \
    aatarasoff/apistress apistress \
    -config=/path/to/config/filename.json
