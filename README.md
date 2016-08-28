@@ -53,7 +53,6 @@ docker run --rm --net=host \
 If `stdin` input is required, use `-config=stdin` flag:
 ```
 cat config.json | docker run --rm --net=host \
-   -v /path/to/folder/with/config:/data \
    aatarasoff/apistress apistress \
    -config=stdin
 ```
@@ -62,7 +61,7 @@ Also it is possible to define own config file name and path:
 docker run --rm --net=host \
    -v /path/to/folder/with/config:/data \
    aatarasoff/apistress apistress \
-   -config=/path/to/config/filename.json
+   -config=/path/to/folder/with/config/filename.json
 ```
 For each test program prints metrics into `stdout`:
 ```
