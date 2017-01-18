@@ -38,33 +38,33 @@ Create file with name `config.json` and folowing structure:
 }
 ```
 Then run docker container:
-```
+```bash
 docker run --rm --net=host \
    -v /path/to/folder/with/config:/data \
    aatarasoff/apistress
 ```
 or with overriden `baseUrl` config property:
-```
+```bash
 docker run --rm --net=host \
    -v /path/to/folder/with/config:/data \
    aatarasoff/apistress apistress \
    -baseUrl http://custom.server:8080
 ```
 If `stdin` input is required, use `-config=stdin` flag:
-```
+```bash
 cat config.json | docker run --rm --net=host \
    aatarasoff/apistress apistress \
    -config=stdin
 ```
 Also it is possible to define own config file name and path:
-```
+```bash
 docker run --rm --net=host \
    -v /path/to/folder/with/config:/data \
    aatarasoff/apistress apistress \
    -config=/path/to/folder/with/config/filename.json
 ```
 For each test program prints metrics into `stdout`:
-```
+```bash
 Requests      [total, rate]            10, 11.11
 Duration      [total, attack, wait]    1.007898226s, 899.953255ms, 107.944971ms
 Latencies     [mean, 50, 95, 99, max]  108.246432ms, 107.608893ms, 109.534083ms, 109.534083ms, 112.276495ms
@@ -75,7 +75,7 @@ Status Codes  [code:count]             200:10
 Error Set:
 ```
 and returns exit code that you may check with following command:
-```
+```bash
 echo $?       //0 - ok, 1 - sla error
 ```
 
