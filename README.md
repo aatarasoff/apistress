@@ -6,7 +6,7 @@ This is very simple stress testing tool for API based on [vegeta](https://github
 
 ## Motivation
 
-Sometimes you want to check SLA of your API automatically. There are many tools for profiling or stressing your software but all of them have huge complexity or require analyse results by third party tools. This project helps you do it easy and in very simple way. One configuration file with very simple structure is needed. In configuration file you need to declare target, attack time, requests frequency and (this is most important part) SLA for target service (99th latency percentile and percentage of successful requests). And if any test is failed, program will print report and exit with error code. It gives very simple integration with different continuous delivery tools.
+Sometimes you want to check SLA of your API automatically. There are many tools for profiling or stressing your software, but all of them have the enormous complexity or analyze results by third party tools. This project helps you do it easy and in a straightforward way. One configuration file with a simple structure is needed. In configuration file you need to declare the target, attack time, request frequency and (this is the most important part) SLA for target service (99th latency percentile and percentage of successful requests). And if any test is failed, the program will print report and exit with error code. It gives simple integration with different continuous delivery tools.
 
 ## Usage
 
